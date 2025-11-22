@@ -72,7 +72,7 @@ function handleAddComment(event) {
   if (text === "") return;
 
   const newComment = {
-    author: "Student", // fixed for this assignment
+    author: "Student",
     text
   };
 
@@ -96,8 +96,9 @@ async function initializePage() {
   try {
     // 2. Load assignments + comments
     const [assignmentsResponse, commentsResponse] = await Promise.all([
-      fetch("assignments.json"),
-      fetch("comments.json")
+      
+      fetch("../assignments/api/assignments.json"), // UPDATED
+      fetch("../assignments/api/comments.json")     // UPDATED
     ]);
 
     const assignments = await assignmentsResponse.json();
