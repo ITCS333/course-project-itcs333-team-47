@@ -1,10 +1,3 @@
-<!--
-  Requirement: Create the Student View for Assignments
-
-  Instructions:
-  This page is a read-only view for students to see all course assignments.
-  Each assignment should link to its dedicated detail page.
--->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Course Assignments</title>
     <link rel="stylesheet" href="../common/styles.css">
+    <script src="list.js" defer></script>
 </head>
 <body>
 
@@ -20,39 +14,11 @@
     </header>
 
     <main>
-
-        <!-- Section: Assignment List -->
-        <section>
-            <article>
-                <h2>Assignment 1: HTML Basics</h2>
-                <p><strong>Due:</strong> 2025-11-10</p>
-                <p>
-                    Create a semantic HTML structure for your personal portfolio website.
-                    Use elements like <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, and <code>&lt;footer&gt;</code>.
-                </p>
-                <a href="details.html">View Details & Discussion</a>
-            </article>
-
-            <article>
-                <h2>Assignment 2: CSS Styling</h2>
-                <p><strong>Due:</strong> 2025-11-17</p>
-                <p>
-                    Style your portfolio using modern CSS. Include Flexbox or Grid layout and one CSS animation.
-                </p>
-                <a href="details.html">View Details & Discussion</a>
-            </article>
-
-            <article>
-                <h2>Assignment 3: JavaScript Events</h2>
-                <p><strong>Due:</strong> 2025-11-24</p>
-                <p>
-                    Make your portfolio interactive by adding event listeners and a theme switcher for light/dark mode.
-                </p>
-                <a href="details.html">View Details & Discussion</a>
-            </article>
-        </section>
-
+        <!-- EMPTY section — JS will insert the assignments here -->
+        <section id="assignment-list-section"></section>
+        
     </main>
 
 </body>
 </html>
+

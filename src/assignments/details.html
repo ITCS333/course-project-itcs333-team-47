@@ -1,8 +1,5 @@
 <!--
   Requirement: Create the Dedicated Page for a Single Assignment
-
-  Instructions:
-  This page displays the full details for one assignment and allows for discussion.
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -12,38 +9,38 @@
     <title>Assignment Details</title>
     <link rel="stylesheet" href="../common/styles.css">
     <script type="module" src="details.js"></script>
-
 </head>
 <body>
     <header>
-        <h1>Assignment 1: HTML Basics</h1>
+        <h1 id="assignment-title">Assignment 1: HTML Basics</h1>
     </header>
 
     <main>
 
         <!-- Section 1: Assignment Information -->
-        <article>
-            <p><strong>Due:</strong> 2025-11-10</p>
+        <article class="assignment-details">  
+            <p id="assignment-due-date"><strong>Due:</strong> 2025-11-10</p>
+
             <h2>Description</h2>
-            <p>
+            <p id="assignment-description">
                 Create a semantic HTML structure for a personal portfolio website.
                 Focus on using elements like <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>,
                 <code>&lt;main&gt;</code>, and <code>&lt;footer&gt;</code>.
             </p>
 
             <h2>Attached Files & Links</h2>
-            <ul>
+            <ul id="assignment-files-list">
                 <li><a href="#">portfolio-requirements.pdf</a></li>
                 <li><a href="#">examples.zip</a></li>
             </ul>
+            
         </article>
 
         <!-- Section 2: Discussion Forum -->
         <section id="discussion-forum">
             <h2>Questions & Discussion</h2>
 
-            <!-- Existing Comments -->
-            <div id="comments-container">
+            <div id="comment-list">
                 <article class="comment">
                     <p>Is it okay to use a 'section' inside an 'article'?</p>
                     <footer>Posted by: Fatema Ahmed</footer>
@@ -54,14 +51,12 @@
                     <footer>Posted by: Mohamed Abdulla</footer>
                 </article>
             </div>
-
-            <!-- Add a Comment Form -->
             <form id="comment-form" action="#">
                 <fieldset>
                     <legend>Ask a Question</legend>
 
-                    <label for="new-comment">Your Comment:</label>
-                    <textarea id="new-comment" rows="4" required></textarea>
+                    <label for="new-comment-text">Your Comment:</label>
+                    <textarea id="new-comment-text" rows="4" required></textarea>
 
                     <button type="submit">Post Comment</button>
                 </fieldset>
