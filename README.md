@@ -42,4 +42,4 @@ Responsible Student: Reem Saleh
 Files: `src/assignments/admin.html`, `src/assignments/list.html`, `src/assignments/details.html`  
 Description: Manages all course assignments (create, update, delete) and provides students with assignment details and due dates.
 
---Replit link will be added later--
+Replit link: https://replit.com/@reemalmuresi200/ITCS333-Course-Project?v=1
