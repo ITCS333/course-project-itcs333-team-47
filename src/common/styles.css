@@ -188,7 +188,7 @@ tr:hover {
 
 /* Assignment Details Page Styling */
 
-article {
+article.assignment-details  {
   background-color: #2f2f2f;
   padding: 1.5rem;
   border-radius: 10px;
@@ -338,3 +338,4 @@ code {
   border-radius: 4px;
   font-size: 0.95rem;
 }
+
