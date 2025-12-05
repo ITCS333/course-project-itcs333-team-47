@@ -25,6 +25,11 @@
 
 // TODO: Select the message container element by its ID.
 
+const loginForm = document.getElementById('login-form');
+const emailInput = document.getElementById('email');
+const passwordInput = document.getElementById('password');
+const messageContainer = document.getElementById('message-container');
+
 // --- Functions ---
 
 /**
@@ -39,7 +44,8 @@
  * (this will allow for CSS styling of 'success' and 'error' states).
  */
 function displayMessage(message, type) {
-  // ... your implementation here ...
+  messageContainer.textContent = message;
+ messageContainer.style.color = type === "success" ? "green" : "red";
 }
 
 /**
@@ -55,7 +61,7 @@ function displayMessage(message, type) {
  * A simple regex for this purpose is: /\S+@\S+\.\S+/
  */
 function isValidEmail(email) {
-  // ... your implementation here ...
+  return /\S+@\S+\.\S+/.test(email);
 }
 
 /**
@@ -69,7 +75,7 @@ function isValidEmail(email) {
  * 3. Return `false` if the password is not valid.
  */
 function isValidPassword(password) {
-  // ... your implementation here ...
+   return password.length >= 8;
 }
 
 /**
@@ -86,8 +92,46 @@ function isValidPassword(password) {
  * - Call `displayMessage("Login successful!", "success")`.
  * - (Optional) Clear the email and password input fields.
  */
-function handleLogin(event) {
-  // ... your implementation here ...
+async function handleLogin(event) {
+  event.preventDefault();
+
+  const email = emailInput.value.trim();
+  const password = passwordInput.value.trim();
+
+  // Client-side validation
+  if (!isValidEmail(email)) {
+    displayMessage("Invalid email format.", "error");
+    return;
+  }
+
+  if (!isValidPassword(password)) {
+    displayMessage("Password must be at least 8 characters.", "error");
+    return;
+  }
+
+  // --- Send Data to PHP Backend ---
+  try {
+    const response = await fetch("src/auth/api/index.php", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ email, password }),
+});
+
+    const data = await response.json();
+
+    if (data.success) {
+      displayMessage("Login successful!", "success");
+
+      setTimeout(() => {
+        window.location.href = "dashboard.php"; // example redirect
+      }, 1200);
+
+    } else {
+      displayMessage(data.message, "error");
+    }
+  } catch (error) {
+    displayMessage("Server error. Try again later.", "error");
+  }
 }
 
 /**
@@ -99,7 +143,9 @@ function handleLogin(event) {
  * 3. The event listener should call the `handleLogin` function.
  */
 function setupLoginForm() {
-  // ... your implementation here ...
+  if (loginForm) {
+    loginForm.addEventListener("submit", handleLogin);
+  }
 }
 
 // --- Initial Page Load ---

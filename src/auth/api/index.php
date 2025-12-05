@@ -1,4 +1,115 @@
 <?php
+// --- Session ---
+session_start();
+
+// --- Headers ---
+header("Content-Type: application/json");
+
+// (Optional) CORS
+// header("Access-Control-Allow-Origin: *");
+// header("Access-Control-Allow-Headers: Content-Type");
+// header("Access-Control-Allow-Methods: POST");
+
+
+// --- Ensure Request Method is POST ---
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    echo json_encode([
+        "success" => false,
+        "message" => "Invalid request method"
+    ]);
+    exit;
+}
+
+
+// --- Get Raw POST JSON ---
+$rawData = file_get_contents("php://input");
+$data = json_decode($rawData, true);
+
+if (!isset($data["email"]) || !isset($data["password"])) {
+    echo json_encode([
+        "success" => false,
+        "message" => "Missing required fields"
+    ]);
+    exit;
+}
+
+$email = trim($data["email"]);
+$password = $data["password"];
+
+
+// --- Server-Side Validation ---
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo json_encode([
+        "success" => false,
+        "message" => "Invalid email format"
+    ]);
+    exit;
+}
+
+if (strlen($password) < 8) {
+    echo json_encode([
+        "success" => false,
+        "message" => "Password must be at least 8 characters"
+    ]);
+    exit;
+}
+
+
+// --- Database ---
+require_once "db.php";
+$pdo = getDBConnection();
+
+try {
+
+    // Find user by email
+    $sql = "SELECT id, name, email, password FROM users WHERE email = :email LIMIT 1";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([":email" => $email]);
+
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Check if user exists
+    if ($user && password_verify($password, $user["password"])) {
+
+        // Save Session
+        $_SESSION["logged_in"] = true;
+        $_SESSION["user_id"] = $user["id"];
+        $_SESSION["user_name"] = $user["name"];
+        $_SESSION["user_email"] = $user["email"];
+
+        echo json_encode([
+            "success" => true,
+            "message" => "Login successful",
+            "user" => [
+                "id" => $user["id"],
+                "name" => $user["name"],
+                "email" => $user["email"]
+            ]
+        ]);
+        exit;
+
+    } else {
+        echo json_encode([
+            "success" => false,
+            "message" => "Invalid email or password"
+        ]);
+        exit;
+    }
+
+} catch (PDOException $e) {
+
+    error_log("LOGIN ERROR: " . $e->getMessage());
+
+    echo json_encode([
+        "success" => false,
+        "message" => "Server error. Please try again later."
+    ]);
+    exit;
+}
+
+?>
+
+
 /**
  * Authentication Handler for Login Form
  * 
