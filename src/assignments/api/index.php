@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 // ============================================================================
 
 // Include the database connection class
-require_once __DIR__ . '/Database.php';
+require_once __DIR__ . '/../../../config/Database.php';
 
 // Create database connection
 $database = new Database();
@@ -337,9 +337,10 @@ function deleteAssignment(PDO $db, $assignmentId)
     }
 
     // Delete comments first
-    $delComments = $db->prepare("DELETE FROM comments WHERE assignment_id = :id");
+    $delComments = $db->prepare("DELETE FROM comments_assignment WHERE assignment_id = :id");
     $delComments->bindValue(':id', $assignmentId, PDO::PARAM_INT);
     $delComments->execute();
+
 
     // Delete assignment
     $stmt = $db->prepare("DELETE FROM assignments WHERE id = :id");
