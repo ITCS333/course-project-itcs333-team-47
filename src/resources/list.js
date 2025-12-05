@@ -10,38 +10,58 @@
 
   3. Implement the TODOs below.
 */
-
 // --- Element Selections ---
-// TODO: Select the section for the resource list ('#resource-list-section').
+const listSection = document.querySelector('#resource-list-section');
 
 // --- Functions ---
 
 /**
- * TODO: Implement the createResourceArticle function.
- * It takes one resource object {id, title, description}.
- * It should return an <article> element matching the structure in `list.html`.
- * The "View Resource & Discussion" link's `href` MUST be set to `details.html?id=${id}`.
- * (This is how the detail page will know which resource to load).
+ * Create an <article> element for a resource
  */
 function createResourceArticle(resource) {
-  // ... your implementation here ...
+    const article = document.createElement('article');
+
+    // Title
+    const titleEl = document.createElement('h2');
+    titleEl.textContent = resource.title;
+    article.appendChild(titleEl);
+
+    // Description
+    const descEl = document.createElement('p');
+    descEl.textContent = resource.description;
+    article.appendChild(descEl);
+
+    // Link to details page
+    const linkEl = document.createElement('a');
+    linkEl.textContent = 'View Resource & Discussion';
+    linkEl.href = `details.html?id=${resource.id}`;
+    linkEl.target = '_blank';
+    article.appendChild(linkEl);
+
+    return article;
 }
 
 /**
- * TODO: Implement the loadResources function.
- * This function needs to be 'async'.
- * It should:
- * 1. Use `fetch()` to get data from 'resources.json'.
- * 2. Parse the JSON response into an array.
- * 3. Clear any existing content from `listSection`.
- * 4. Loop through the resources array. For each resource:
- * - Call `createResourceArticle()`.
- * - Append the returned <article> element to `listSection`.
+ * Load resources from JSON and render them
  */
 async function loadResources() {
-  // ... your implementation here ...
+    try {
+        const response = await fetch('resources.json');
+        const resources = await response.json();
+
+        // Clear existing content
+        listSection.innerHTML = '';
+
+        // Loop through and append articles
+        resources.forEach(resource => {
+            const article = createResourceArticle(resource);
+            listSection.appendChild(article);
+        });
+    } catch (error) {
+        console.error('Error loading resources:', error);
+        listSection.innerHTML = '<p>Failed to load resources.</p>';
+    }
 }
 
 // --- Initial Page Load ---
-// Call the function to populate the page.
 loadResources();
