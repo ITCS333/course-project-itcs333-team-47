@@ -43,4 +43,4 @@ Files: `src/assignments/admin.html`, `src/assignments/list.html`, `src/assignmen
 
 Description: Manages all course assignments (create, update, delete) and provides students with assignment details and due dates.
 
-Replit link: https://replit.com/@reemalmuresi200/ITCS333-Course-Project?v=1
+Replit link: https:https://replit.com/@reemalmuresi200/ITCS333-Course-Project?embed=1&on=editor
