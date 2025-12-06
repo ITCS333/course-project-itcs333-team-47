@@ -33,6 +33,7 @@ Description: Allows the admin to upload and edit course resources, while student
 **Task 3:** Weekly Breakdown  
 Responsible Student: Zahraa Mahdi  
 Files: `src/weekly/admin.html`, `src/weekly/list.html`, `src/weekly/details.html`, `src/weekly/admin.js`, `src/weekly/list.js`, `src/weekly/details.js` , `src/weekly/api/index.php`
+
 Description: Organizes the course content by week, showing topics and related materials with discussion options.
 
 ---
