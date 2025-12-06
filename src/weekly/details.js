@@ -23,23 +23,31 @@ let currentWeekId = null;
 let currentComments = [];
 
 // --- Element Selections ---
-// TODO: Select all the elements you added IDs for in step 2.
+// Select all the elements you added IDs for in step 2.
+const weekTitle = document.querySelector('#week-title');
+const weekStartDate = document.querySelector('#week-start-date');
+const weekDescription = document.querySelector('#week-description');
+const weekLinksList = document.querySelector('#week-links-list');
+const commentList = document.querySelector('#comment-list');
+const commentForm = document.querySelector('#comment-form');
+const newCommentText = document.querySelector('#new-comment-text');
 
 // --- Functions ---
 
 /**
- * TODO: Implement the getWeekIdFromURL function.
+ * Implement the getWeekIdFromURL function.
  * It should:
  * 1. Get the query string from `window.location.search`.
  * 2. Use the `URLSearchParams` object to get the value of the 'id' parameter.
  * 3. Return the id.
  */
 function getWeekIdFromURL() {
-  // ... your implementation here ...
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get('id');
 }
 
 /**
- * TODO: Implement the renderWeekDetails function.
+ * Implement the renderWeekDetails function.
  * It takes one week object.
  * It should:
  * 1. Set the `textContent` of `weekTitle` to the week's title.
@@ -50,21 +58,39 @@ function getWeekIdFromURL() {
  * should both be the link URL.
  */
 function renderWeekDetails(week) {
-  // ... your implementation here ...
+  weekTitle.textContent = week.title;
+  weekStartDate.textContent = "Starts on: " + week.startDate;
+  weekDescription.textContent = week.description;
+  weekLinksList.innerHTML = '';
+  week.links.forEach(link => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = link;
+    a.textContent = link;
+    li.appendChild(a);
+    weekLinksList.appendChild(li);
+  });
 }
 
 /**
- * TODO: Implement the createCommentArticle function.
+ * Implement the createCommentArticle function.
  * It takes one comment object {author, text}.
  * It should return an <article> element matching the structure in `details.html`.
  * (e.g., an <article> containing a <p> and a <footer>).
  */
 function createCommentArticle(comment) {
-  // ... your implementation here ...
+  const article = document.createElement('article');
+  const p = document.createElement('p');
+  p.textContent = comment.text;
+  article.appendChild(p);
+  const footer = document.createElement('footer');
+  footer.textContent = comment.author;
+  article.appendChild(footer);
+  return article;
 }
 
 /**
- * TODO: Implement the renderComments function.
+ * Implement the renderComments function.
  * It should:
  * 1. Clear the `commentList`.
  * 2. Loop through the global `currentComments` array.
@@ -72,11 +98,15 @@ function createCommentArticle(comment) {
  * append the resulting <article> to `commentList`.
  */
 function renderComments() {
-  // ... your implementation here ...
+  commentList.innerHTML = '';
+  currentComments.forEach(comment => {
+    const article = createCommentArticle(comment);
+    commentList.appendChild(article);
+  });
 }
 
 /**
- * TODO: Implement the handleAddComment function.
+ * Implement the handleAddComment function.
  * This is the event handler for the `commentForm` 'submit' event.
  * It should:
  * 1. Prevent the form's default submission.
@@ -89,11 +119,17 @@ function renderComments() {
  * 7. Clear the `newCommentText` textarea.
  */
 function handleAddComment(event) {
-  // ... your implementation here ...
+  event.preventDefault();
+  const commentText = newCommentText.value.trim();
+  if (!commentText) return;
+  const newComment = { author: 'Student', text: commentText };
+  currentComments.push(newComment);
+  renderComments();
+  newCommentText.value = '';
 }
 
 /**
- * TODO: Implement an `initializePage` function.
+ * Implement an `initializePage` function.
  * This function needs to be 'async'.
  * It should:
  * 1. Get the `currentWeekId` by calling `getWeekIdFromURL()`.
@@ -110,7 +146,34 @@ function handleAddComment(event) {
  * 8. If the week is not found, display an error in `weekTitle`.
  */
 async function initializePage() {
-  // ... your implementation here ...
+  currentWeekId = getWeekIdFromURL();
+  if (!currentWeekId) {
+    weekTitle.textContent = "Week not found.";
+    return;
+  }
+
+  try {
+    const [weeksResponse, commentsResponse] = await Promise.all([
+      fetch('weeks.json'),
+      fetch('week-comments.json')
+    ]);
+    const weeks = await weeksResponse.json();
+    const allComments = await commentsResponse.json();
+
+    const week = weeks.find(w => w.id === currentWeekId);
+    currentComments = allComments[currentWeekId] || [];
+
+    if (week) {
+      renderWeekDetails(week);
+      renderComments();
+      commentForm.addEventListener('submit', handleAddComment);
+    } else {
+      weekTitle.textContent = "Week not found.";
+    }
+  } catch (error) {
+    console.error('Error loading data:', error);
+    weekTitle.textContent = "Error loading week details.";
+  }
 }
 
 // --- Initial Page Load ---
