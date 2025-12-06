@@ -14,7 +14,7 @@
      - To the <textarea>: `id="new-comment"`
 
   3. Implement the TODOs below.
-*/
+*/ 
 
 // --- Global Data Store ---
 let currentResourceId = null;
