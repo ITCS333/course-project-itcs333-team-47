@@ -12,23 +12,43 @@
 */
 
 // --- Element Selections ---
-// TODO: Select the section for the week list ('#week-list-section').
+// Select the section for the week list ('#week-list-section').
+const listSection = document.querySelector('#week-list-section');
 
 // --- Functions ---
 
 /**
- * TODO: Implement the createWeekArticle function.
+ * Implement the createWeekArticle function.
  * It takes one week object {id, title, startDate, description}.
  * It should return an <article> element matching the structure in `list.html`.
  * - The "View Details & Discussion" link's `href` MUST be set to `details.html?id=${id}`.
  * (This is how the detail page will know which week to load).
  */
 function createWeekArticle(week) {
-  // ... your implementation here ...
+  const article = document.createElement('article');
+
+  const h2 = document.createElement('h2');
+  h2.textContent = week.title;
+  article.appendChild(h2);
+
+  const pStartDate = document.createElement('p');
+  pStartDate.textContent = `Starts on: ${week.startDate}`;
+  article.appendChild(pStartDate);
+
+  const pDescription = document.createElement('p');
+  pDescription.textContent = week.description;
+  article.appendChild(pDescription);
+
+  const a = document.createElement('a');
+  a.href = `details.html?id=${week.id}`;
+  a.textContent = 'View Details & Discussion';
+  article.appendChild(a);
+
+  return article;
 }
 
 /**
- * TODO: Implement the loadWeeks function.
+ * Implement the loadWeeks function.
  * This function needs to be 'async'.
  * It should:
  * 1. Use `fetch()` to get data from 'weeks.json'.
@@ -39,7 +59,19 @@ function createWeekArticle(week) {
  * - Append the returned <article> element to `listSection`.
  */
 async function loadWeeks() {
-  // ... your implementation here ...
+  try {
+    const response = await fetch('weeks.json');
+    const weeks = await response.json();
+    listSection.innerHTML = '';
+    weeks.forEach(week => {
+      const article = createWeekArticle(week);
+      listSection.appendChild(article);
+    });
+  } catch (error) {
+    console.error('Error loading weeks:', error);
+    // Optionally, display an error message in the section
+    listSection.innerHTML = '<p>Error loading weeks. Please try again later.</p>';
+  }
 }
 
 // --- Initial Page Load ---
