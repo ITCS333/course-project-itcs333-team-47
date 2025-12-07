@@ -796,8 +796,9 @@ header {
 }
 
 header h1 {
-  font-size: 2rem;
-  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;      
+
 }
 
 /* ====== MAIN CARD ====== */
@@ -813,12 +814,14 @@ main {
 nav {
   background: rgba(34, 34, 40, 0.95);  
   border-radius: 16px;
-  padding: 2rem 2.5rem;
+  padding: 2.5rem 3rem;
   width: 100%;
-  max-width: 600px;
+  max-width: 1000px;   
+  min-height: 60vh;   
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   backdrop-filter: blur(6px);
 }
+
 
 /* "Site Navigation" */
 
@@ -927,4 +930,16 @@ nav a:hover {
   transform: translateY(-1px);
 }
 
+main {
+  max-width: 1200px;   
+  margin: 3rem auto;
+  padding: 0 2rem;
+}
+
+nav ul {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 1.5rem;
+  padding: 0;
+  margin-top: 2rem;
 
