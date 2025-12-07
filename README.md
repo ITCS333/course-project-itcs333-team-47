@@ -40,7 +40,7 @@ Description: Organizes the course content by week, showing topics and related ma
 
 **Task 4:** Assignments  
 Responsible Student: Reem Saleh  
-Files: `src/assignments/admin.html`,`src/assignments/list.html`,`src/assignments/details.html`,`src/assignments/list.js`,`src/assignments/details.js`,`src/assignments/admin.js`,`/src/assignments/api/index.php`,`src/config/Database.php `,
+Files: `src/assignments/admin.html`,`src/assignments/list.html`,`src/assignments/details.html`,`src/assignments/list.js`,`src/assignments/details.js`,`src/assignments/admin.js`,`/src/assignments/api/index.php`,`src/config/Database.php `,`src/config/Database.php`
 
 Description: Manages all course assignments (create, update, delete) and provides students with assignment details and due dates.
 
