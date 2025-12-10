@@ -1,110 +1,47 @@
-<!--
-  Requirement: Create the Dedicated Page for a Single Week
-  Instructions:
-  This page displays the full details for one week and allows for discussion.
--->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- TODO: Add meta tags for charset and viewport. -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- TODO: Add a title, for now use "Week Details". -->
     <title>Week Details</title>
-    
-    <!-- TODO: Link to your CSS framework or stylesheet. -->
     <link rel="stylesheet" href="style.css">
+    <script src="details.js" defer></script>
 </head>
 <body>
-    <!-- TODO: Create a 'header' with a main heading ('h1'). Use a dummy title like "Week 1: Introduction to HTML". -->
     <header>
-        <h1>Week 1: Introduction to HTML</h1>
+        <h1 id="week-title">Loading...</h1>
     </header>
     
-    <!-- TODO: Create the 'main' content area. -->
     <main>
-        <!-- Section 1: Weekly Information -->
-        <!-- TODO: Use an 'article' to display the main weekly information. -->
         <article>
-            <!-- TODO: Add a paragraph ('p') to display the start date, e.g., "Starts on: YYYY-MM-DD". -->
-            <p class="start-date">Starts on: 2024-01-15</p>
+            <p class="start-date" id="week-start-date"></p>
             
-            <!-- TODO: Add a sub-heading ('h2') "Description & Notes". -->
             <h2>Description & Notes</h2>
+            <p id="week-description"></p>
             
-            <!-- TODO: Add a paragraph ('p') with dummy text for the week's detailed notes. -->
-            <p>This week introduces the fundamental concepts of HTML (HyperText Markup Language), the backbone of all web pages. You will learn about the basic structure of HTML documents, common tags like headings, paragraphs, and links, as well as semantic HTML elements that improve accessibility and SEO. By the end of this week, you should be comfortable creating simple web pages with proper structure and meaningful content.</p>
-            
-            <!-- TODO: Add another sub-heading ('h2') "Exercises & Resources". -->
             <h2>Exercises & Resources</h2>
-            
-            <!-- TODO: Use an unordered list ('ul') to display the links for the week. -->
-            <ul>
-                <!-- TODO: Add list items ('li') with anchor tags ('a') for each resource. Use dummy links for now. -->
-                <!-- Example: <li><a href="#">Exercise 1 - Basic Tags</a></li> -->
-                <li><a href="#">Exercise 1 - Basic Tags</a></li>
-                <li><a href="#">Exercise 2 - Creating Your First Webpage</a></li>
-                <li><a href="#">Exercise 3 - Semantic HTML Elements</a></li>
-                <li><a href="#">Resource: MDN HTML Documentation</a></li>
-                <li><a href="#">Resource: W3Schools HTML Tutorial</a></li>
-            <!-- End of the list. -->
-            </ul>
-        <!-- End of article. -->
+            <ul id="week-links-list"></ul>
         </article>
         
-        <!-- Section 2: Discussion Forum -->
-        <!-- TODO: Create a 'section' for the discussion, with an 'id' of "discussion-forum". -->
         <section id="discussion-forum">
-            <!-- TODO: Add a sub-heading ('h2') "Discussion". -->
             <h2>Discussion</h2>
             
-            <!-- Subsection 2.1: Existing Comments -->
-            <!-- TODO: Add a container (like a 'div') for the list of comments. -->
-            <div class="comments-container">
-                <!-- TODO: Add 1-2 dummy comments to show the structure. -->
-                <!-- Example Comment 1: -->
-                <!-- TODO: Use an 'article' for each comment. -->
-                <article class="comment">
-                    <!-- TODO: Use a 'p' for the comment text (e.g., "I have a question about the 'header' tag."). -->
-                    <p>I have a question about the 'header' tag. Is it the same as the 'head' tag in HTML?</p>
-                    
-                    <!-- TODO: Use a 'footer' to show the author (e.g., "Posted by: John Doe"). -->
-                    <footer>Posted by: John Doe</footer>
-                <!-- End of comment article. -->
-                </article>
-                
-                <!-- Example Comment 2: -->
-                <article class="comment">
-                    <p>Great introduction! The exercises really helped me understand the basics. Can we get more examples on semantic HTML?</p>
-                    <footer>Posted by: Sarah Ahmed</footer>
-                </article>
-            </div>
+            <div class="comments-container" id="comment-list"></div>
             
-            <!-- Subsection 2.2: Add a Comment Form -->
-            <!-- TODO: Create a 'form' for users to post new comments. Action can be '#'. -->
-            <form action="#">
-                <!-- TODO: Use a 'fieldset' to group the controls. -->
+            <form id="comment-form">
                 <fieldset>
-                    <!-- TODO: Add a 'legend', e.g., "Ask a Question". -->
                     <legend>Ask a Question</legend>
                     
-                    <!-- TODO: Add a 'label' and 'textarea' for the comment box.
-                         - label 'for': "new-comment"
-                         - textarea 'id': "new-comment", required -->
-                    <label for="new-comment">Your Comment:</label>
-                    <textarea id="new-comment" name="new-comment" rows="5" placeholder="Type your question or comment here..." required></textarea>
+                    <label for="author">Your Name:</label>
+                    <input type="text" id="author" name="author" placeholder="Enter your name" value="Student">
                     
-                    <!-- TODO: Add a 'button' to submit the comment.
-                         - type="submit", Text: "Post Comment" -->
+                    <label for="new-comment-text">Your Comment:</label>
+                    <textarea id="new-comment-text" name="new-comment" rows="5" placeholder="Type your question or comment here..." required></textarea>
+                    
                     <button type="submit">Post Comment</button>
-                <!-- End of fieldset. -->
                 </fieldset>
-            <!-- End of form. -->
             </form>
-        <!-- End of discussion section. -->
         </section>
-    <!-- End of main. -->
     </main>
 </body>
 </html>
