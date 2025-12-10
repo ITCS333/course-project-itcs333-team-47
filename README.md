@@ -36,8 +36,6 @@ Files: `src/weekly/admin.html`, `src/weekly/list.html`, `src/weekly/details.html
 
 Description: Organizes the course content by week, showing topics and related materials with discussion options.
 
-Replit link: https://replit.com/@zsarhan-io/ITCS333-Course-Project
-
 ---
 
 **Task 4:** Assignments  
