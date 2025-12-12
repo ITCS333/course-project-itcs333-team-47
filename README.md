@@ -32,15 +32,28 @@ Description: Allows the admin to upload and edit course resources, while student
 
 **Task 3:** Weekly Breakdown  
 Responsible Student: Zahraa Mahdi  
-Files: `src/weekly/admin.html`, `src/weekly/list.html`, `src/weekly/details.html`  
+Files: `src/weekly/admin.html`, `src/weekly/list.html`, `src/weekly/details.html`, `src/weekly/admin.js`, `src/weekly/list.js`, `src/weekly/details.js` , `src/weekly/api/index.php`
+
 Description: Organizes the course content by week, showing topics and related materials with discussion options.
 
 ---
 
 **Task 4:** Assignments  
 Responsible Student: Reem Saleh  
-Files: `src/assignments/admin.html`, `src/assignments/list.html`, `src/assignments/details.html`,`src/assignments/list.js`,`src/assignments/details.js`,`src/assignments/admin.js`,`/src/assignments/api/index.php`,`src/config/Database.php `,
+Files: `src/assignments/admin.html`,`src/assignments/list.html`,`src/assignments/details.html`,`src/assignments/list.js`,`src/assignments/details.js`,`src/assignments/admin.js`,`/src/assignments/api/index.php`,`src/config/Database.php `,`src/config/Database.php`
 
 Description: Manages all course assignments (create, update, delete) and provides students with assignment details and due dates.
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 
 Replit link: https:https://replit.com/@reemalmuresi200/ITCS333-Course-Project?embed=1&on=editor

@@ -15,7 +15,7 @@ let resources = [];
 // --- Element Selections ---
 const resourceForm = document.querySelector('#resource-form');
 const resourcesTableBody = document.querySelector('#resources-tbody');
-
+ 
 // --- Functions ---
 
 /**

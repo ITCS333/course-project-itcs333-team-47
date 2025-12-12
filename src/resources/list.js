@@ -3,7 +3,7 @@
 
   Instructions:
   1. Link this file to `list.html` using:
-     <script src="list.js" defer></script>
+     <script src="list.js" defer></script> 
 
   2. In `list.html`, add an `id="resource-list-section"` to the
      <section> element that will contain the resource articles.
