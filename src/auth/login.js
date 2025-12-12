@@ -126,7 +126,7 @@ if (data.success) {
 
 } else {
   displayMessage(data.message || "Invalid email or password", "error");
-}
+}}
 
 
 /**
