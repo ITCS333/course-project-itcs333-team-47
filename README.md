@@ -18,7 +18,7 @@
 
 **Task 1:** Homepage + Login System + Admin Portal  
 Responsible Student: Shaima Waleed  
-Files: `index.html`, `src/auth/login.html`, `src/admin/manage_users.html`  
+Files: `index.html`, `src/auth/login.html`, `src/admin/manage_users.html`, `src\admin\manage_users.js`,`src\auth\api\index.php` `\src\admin\api\index.php`
 Description: Builds the main homepage, login/logout system, and admin control panel for managing students (CRUD).
 
 ---

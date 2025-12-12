@@ -45,7 +45,8 @@ const messageContainer = document.getElementById('message-container');
  */
 function displayMessage(message, type) {
   messageContainer.textContent = message;
- messageContainer.style.color = type === "success" ? "green" : "red";
+  messageContainer.style.color = type;
+  messageContainer.style.color = type === "success" ? "green" : "red";
 }
 
 /**
@@ -110,29 +111,23 @@ async function handleLogin(event) {
   }
 
   // --- Send Data to PHP Backend ---
-  try {
-    const response = await fetch("src/auth/api/index.php", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ email, password }),
-});
+if (data.success) {
+  displayMessage("Login successful!", "success");
 
-    const data = await response.json();
-
-    if (data.success) {
-      displayMessage("Login successful!", "success");
-
-      setTimeout(() => {
-        window.location.href = "dashboard.php"; // example redirect
-      }, 1200);
-
+  setTimeout(() => {
+    if (data.user && data.user.role === "admin") {
+      // Admins
+      window.location.href = "../admin/manage_users.html";
     } else {
-      displayMessage(data.message, "error");
+      // Students / Users
+      window.location.href = "../index.html";
     }
-  } catch (error) {
-    displayMessage("Server error. Try again later.", "error");
-  }
+  }, 900);
+
+} else {
+  displayMessage(data.message || "Invalid email or password", "error");
 }
+
 
 /**
  * TODO: Implement the setupLoginForm function.

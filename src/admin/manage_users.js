@@ -18,8 +18,8 @@ let students = [];
 // the HTML document is parsed before this script runs.
 
 const studentTableBody = document.querySelector('#student-table tbody'); // tbody of student table
-const addStudentForm = document.querySelector('#add-student-form') || document.querySelector('form[action="#"]:has(#student-name)'); // Add Student form
-const changePasswordForm = document.querySelector('#password-form') || document.querySelector('form[action="#"]:has(#current-password)'); // Change Password form
+const addStudentForm = document.querySelector('#add-student-form'); // Add Student form
+const changePasswordForm = document.querySelector('#password-form') ;// Change Password form
 const searchInput = document.querySelector('#search-input'); // Search input field (add id="search-input" to HTML if missing)
 const tableHeaders = document.querySelectorAll('#student-table thead th'); // All table headers
 
@@ -37,37 +37,19 @@ const tableHeaders = document.querySelectorAll('#student-table thead th'); // Al
  * - A "Delete" button with class "delete-btn" and a data-id attribute set to the student's ID.
  */
 function createStudentRow(student) {
-  const tr = document.createElement('tr');
+    const tr = document.createElement('tr');
 
-  const nameTd = document.createElement('td');
-  nameTd.textContent = student.name;
-  tr.appendChild(nameTd);
+    tr.innerHTML = `
+        <td>${student.name}</td>
+        <td>${student.id}</td>
+        <td>${student.email}</td>
+        <td>
+            <button class="edit-btn" data-id="${student.id}">Edit</button>
+            <button class="delete-btn" data-id="${student.id}">Delete</button>
+        </td>
+    `;
 
-  const idTd = document.createElement('td');
-  idTd.textContent = student.id;
-  tr.appendChild(idTd);
-
-  const emailTd = document.createElement('td');
-  emailTd.textContent = student.email;
-  tr.appendChild(emailTd);
-
-  const actionsTd = document.createElement('td');
-
-  const editBtn = document.createElement('button');
-  editBtn.textContent = 'Edit';
-  editBtn.classList.add('edit-btn');
-  editBtn.dataset.id = student.id;
-  actionsTd.appendChild(editBtn);
-
-  const deleteBtn = document.createElement('button');
-  deleteBtn.textContent = 'Delete';
-  deleteBtn.classList.add('delete-btn');
-  deleteBtn.dataset.id = student.id;
-  actionsTd.appendChild(deleteBtn);
-
-  tr.appendChild(actionsTd);
-
-  return tr;
+    return tr;
 }
 
 
@@ -79,12 +61,9 @@ function createStudentRow(student) {
  * 2. Loop through the provided array of students.
  * 3. For each student, call `createStudentRow` and append the returned <tr> to `studentTableBody`.
  */
-function renderTable(studentArray) {
-  studentTableBody.innerHTML = '';
-  studentArray.forEach(student => {
-    const row = createStudentRow(student);
-    studentTableBody.appendChild(row);
-  });
+function renderTable(list) {
+    studentTableBody.innerHTML = '';
+    list.forEach(s => studentTableBody.appendChild(createStudentRow(s)));
 }
 
 /**
@@ -99,28 +78,21 @@ function renderTable(studentArray) {
  * 4. If validation passes, show an alert: "Password updated successfully!"
  * 5. Clear all three password input fields.
  */
-function handleChangePassword(event) {
-  event.preventDefault();
+function handleChangePassword(e) {
+    e.preventDefault();
 
-  const currentPassword = document.querySelector('#current-password').value.trim();
-  const newPassword = document.querySelector('#new-password').value.trim();
-  const confirmPassword = document.querySelector('#confirm-password').value.trim();
+    const current = document.querySelector('#current-password').value.trim();
+    const newPass = document.querySelector('#new-password').value.trim();
+    const confirm = document.querySelector('#confirm-password').value.trim();
 
-  if (newPassword !== confirmPassword) {
-    alert('Passwords do not match.');
-    return;
-  }
+    if (newPass !== confirm) return alert("Passwords do not match.");
+    if (newPass.length < 8) return alert("Password must be at least 8 characters.");
 
-  if (newPassword.length < 8) {
-    alert('Password must be at least 8 characters.');
-    return;
-  }
+    alert("Password updated successfully!");
 
-  alert('Password updated successfully!');
-
-  document.querySelector('#current-password').value = '';
-  document.querySelector('#new-password').value = '';
-  document.querySelector('#confirm-password').value = '';
+    document.querySelector('#current-password').value = '';
+    document.querySelector('#new-password').value = '';
+    document.querySelector('#confirm-password').value = '';
 }
 
 
@@ -139,32 +111,27 @@ function handleChangePassword(event) {
  * - Call `renderTable(students)` to update the view.
  * 5. Clear the "student-name", "student-id", "student-email", and "default-password" input fields.
  */
-function handleAddStudent(event) {
-  event.preventDefault();
+function handleAddStudent(e) {
+    e.preventDefault();
 
-  const name = document.querySelector('#student-name').value.trim();
-  const id = document.querySelector('#student-id').value.trim();
-  const email = document.querySelector('#student-email').value.trim();
+    const name = document.querySelector('#student-name').value.trim();
+    const id = document.querySelector('#student-id').value.trim();
+    const email = document.querySelector('#student-email').value.trim();
 
-  if (!name || !id || !email) {
-    alert('Please fill out all required fields.');
-    return;
-  }
+    if (!name || !id || !email) return alert("Please fill all fields.");
 
-  if (students.some(student => student.id === id)) {
-    alert('A student with this ID already exists.');
-    return;
-  }
+    if (students.some(s => s.id === id))
+        return alert("A student with this ID already exists.");
 
-  const newStudent = { name, id, email };
-  students.push(newStudent);
-  renderTable(students);
+    students.push({ name, id, email });
+    renderTable(students);
 
-  document.querySelector('#student-name').value = '';
-  document.querySelector('#student-id').value = '';
-  document.querySelector('#student-email').value = '';
-  document.querySelector('#default-password').value = 'password123';
+    document.querySelector('#student-name').value = '';
+    document.querySelector('#student-id').value = '';
+    document.querySelector('#student-email').value = '';
+    document.querySelector('#default-password').value = 'password123';
 }
+
 
 
 /**
@@ -179,14 +146,15 @@ function handleAddStudent(event) {
  * 3. (Optional) Check for "edit-btn" and implement edit logic.
  */
 function handleTableClick(event) {
-  if (event.target.classList.contains('delete-btn')) {
-    const idToDelete = event.target.dataset.id;
-    students = students.filter(student => student.id !== idToDelete);
-    renderTable(students);
-  }
+    if (event.target.classList.contains('delete-btn')) {
+        const id = event.target.dataset.id;
+        students = students.filter(s => s.id !== id);
+        renderTable(students);
+    }
+}
+
 
   // Optional: Edit logic can be added here
-}
 
 /**
  * TODO: Implement the handleSearch function.
@@ -200,19 +168,14 @@ function handleTableClick(event) {
  * - Call `renderTable` with the *filtered array*.
  */
 function handleSearch() {
-  if (!searchInput) return; // safeguard if searchInput is not in HTML
-  const term = searchInput.value.trim().toLowerCase();
+    const term = searchInput.value.toLowerCase().trim();
+    if (!term) return renderTable(students);
 
-  if (!term) {
-    renderTable(students);
-    return;
-  }
+    const filtered = students.filter(s =>
+        s.name.toLowerCase().includes(term)
+    );
 
-  const filtered = students.filter(student =>
-    student.name.toLowerCase().includes(term)
-  );
-
-  renderTable(filtered);
+    renderTable(filtered);
 }
 
 
@@ -231,27 +194,19 @@ function handleSearch() {
  * 6. After sorting, call `renderTable(students)` to update the view.
  */
 function handleSort(event) {
-  const index = event.currentTarget.cellIndex;
-  let key = '';
-  if (index === 0) key = 'name';
-  else if (index === 1) key = 'id';
-  else if (index === 2) key = 'email';
+    const index = event.currentTarget.cellIndex;
+    const keys = ['name', 'id', 'email'];
 
-  const currentDir = event.currentTarget.dataset.sortDir || 'asc';
-  const newDir = currentDir === 'asc' ? 'desc' : 'asc';
-  event.currentTarget.dataset.sortDir = newDir;
+    let key = keys[index];
+    let dir = event.currentTarget.dataset.sortDir === 'asc' ? 'desc' : 'asc';
+    event.currentTarget.dataset.sortDir = dir;
 
-  students.sort((a, b) => {
-    let comp;
-    if (key === 'id') {
-      comp = Number(a.id) - Number(b.id);
-    } else {
-      comp = a[key].localeCompare(b[key]);
-    }
-    return newDir === 'asc' ? comp : -comp;
-  });
+    students.sort((a, b) => {
+        let comp = a[key].localeCompare(b[key]);
+        return dir === 'asc' ? comp : -comp;
+    });
 
-  renderTable(students);
+    renderTable(students);
 }
 
 /**
@@ -271,23 +226,31 @@ function handleSort(event) {
  * - "click" on each header in `tableHeaders` -> `handleSort`
  */
 async function loadStudentsAndInitialize() {
-  try {
-    const response = await fetch('src/admin/api/students.json');
-    if (!response.ok) throw new Error('Failed to fetch students.json');
-    students = await response.json();
-    renderTable(students);
+    try {
 
-    if (changePasswordForm) changePasswordForm.addEventListener('submit', handleChangePassword);
-    if (addStudentForm) addStudentForm.addEventListener('submit', handleAddStudent);
-    studentTableBody.addEventListener('click', handleTableClick);
-    if (searchInput) searchInput.addEventListener('input', handleSearch);
-    tableHeaders.forEach(th => th.addEventListener('click', handleSort));
+        // Session check
+        const authCheck = await fetch("api/index.php");
+        if (authCheck.status === 401) {
+            window.location.href = "../auth/login.html";
+            return;
+        }
 
-  } catch (error) {
-    console.error(error);
-  }
+        const response = await fetch("api/students.json");
+        students = await response.json();
+
+        renderTable(students);
+
+        changePasswordForm.addEventListener('submit', handleChangePassword);
+        addStudentForm.addEventListener('submit', handleAddStudent);
+        studentTableBody.addEventListener('click', handleTableClick);
+        searchInput.addEventListener('input', handleSearch);
+        tableHeaders.forEach(th => th.addEventListener('click', handleSort));
+
+    } catch (err) {
+        console.error("Failed to load admin portal", err);
+        window.location.href = "../auth/login.html";
+    }
 }
-
 // --- Initial Page Load ---
 // Call the main async function to start the application.
 loadStudentsAndInitialize();

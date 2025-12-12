@@ -10,6 +10,7 @@
 
     <header>
         <h1>Admin Portal</h1>
+         <a href="../auth/api/logout.php" style="color:white; float:right;">Logout</a>
     </header>
 
     <main>
@@ -17,7 +18,7 @@
         <!-- Section 1: Password Management -->
         <section>
             <h2>Change Your Password</h2>
-            <form id="password-form" action="#">
+            <form id="password-form">
                 <fieldset>
                     <legend>Password Update</legend>
 
@@ -42,7 +43,7 @@
             <!-- Add New Student Form -->
             <details>
                 <summary>Add New Student</summary>
-                <form id="add-student-form" action="#">
+                <form id="add-student-form">
                     <fieldset>
                         <legend>New Student Information</legend>
 
@@ -78,33 +79,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>12345</td>
-                        <td>john.doe@example.com</td>
-                        <td>
-                            <button>Edit</button>
-                            <button>Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Jane Smith</td>
-                        <td>67890</td>
-                        <td>jane.smith@example.com</td>
-                        <td>
-                            <button>Edit</button>
-                            <button>Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Ali Khan</td>
-                        <td>11223</td>
-                        <td>ali.khan@example.com</td>
-                        <td>
-                            <button>Edit</button>
-                            <button>Delete</button>
-                        </td>
-                    </tr>
+                    <!-- Student rows will be dynamically added here -->
                 </tbody>
             </table>
 
