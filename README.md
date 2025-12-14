@@ -56,4 +56,4 @@ Description: Manages all course assignments (create, update, delete) and provide
 
 
 
-Replit link: https:https://replit.com/@reemalmuresi200/ITCS333-Course-Project?embed=1&on=editor
+Replit link: https:https://replit.com/@reemalmuresi200/ITCS333-Course-Project?v=1
