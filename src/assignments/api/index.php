@@ -1,4 +1,9 @@
 <?php
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // If request is for a static file (HTML / JS / CSS), serve it directly
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $fullPath = __DIR__ . $path;
