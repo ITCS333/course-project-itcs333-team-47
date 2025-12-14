@@ -5,11 +5,9 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 
-if (!isset($_SESSION['user'])) {
-    $_SESSION['user'] = [
-        'id'   => null,
-        'role' => 'guest'
-    ];
+if (!isset($_SESSION['user_id'])) {
+    $_SESSION['user_id'] = 0;
+    $_SESSION['role'] = 'guest';
 }
 
 // If request is for a static file (HTML / JS / CSS), serve it directly
