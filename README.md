@@ -25,7 +25,7 @@ Description: Builds the main homepage, login/logout system, and admin control pa
 
 **Task 2:** Course Resources  
 Responsible Student: Shahd Mohamed  
-Files: `src/resources/admin.html`, `src/resources/list.html`, `src/resources/details.html`  , 'src/resources/admin.js' , 'src/resources/list.js', 'src/resources/details.js' , src/resources/api/index.php 
+Files: `src/resources/admin.html`, `src/resources/list.html`, `src/resources/details.html`  
 Description: Allows the admin to upload and edit course resources, while students can view and discuss each resource.
 
 ---
